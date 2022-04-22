@@ -1,3 +1,4 @@
 const Thought = require('./Thought');
+const Continue = require('./Continue');
 
-module.exports = { Thought };
+module.exports = { Thought, Continue };
