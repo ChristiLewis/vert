@@ -1,28 +1,28 @@
-const $addToppingBtn = document.querySelector('#add-topping');
+const $addreactionBtn = document.querySelector('#add-reaction');
 const $thoughtForm = document.querySelector('#thought-form');
-const $customToppingsList = document.querySelector('#custom-toppings-list');
+const $customReactionsList = document.querySelector('#custom-reactions-list');
 
-const handleAddTopping = event => {
+const handleAddReaction = event => {
   event.preventDefault();
 
-  const toppingValue = document.querySelector('#new-topping').value;
+  const reactionValue = document.querySelector('#new-reaction').value;
 
-  if (!toppingValue) {
+  if (!reactionValue) {
     return false;
   }
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.name = 'topping';
-  checkbox.value = toppingValue;
-  checkbox.id = toppingValue
+  checkbox.name = 'reaction';
+  checkbox.value = reactionValue;
+  checkbox.id = reactionValue
     .toLowerCase()
     .split(' ')
     .join('-');
 
   const label = document.createElement('label');
-  label.textContent = toppingValue;
-  label.htmlFor = toppingValue
+  label.textContent = reactionValue;
+  label.htmlFor = reactionValue
     .toLowerCase()
     .split(' ')
     .join('-');
@@ -31,27 +31,27 @@ const handleAddTopping = event => {
 
   divWrapper.appendChild(checkbox);
   divWrapper.appendChild(label);
-  $customToppingsList.appendChild(divWrapper);
+  $customReactionsList.appendChild(divWrapper);
 
-  toppingValue.value = '';
+  reactionValue.value = '';
 };
 
-const handlethoughtSubmit = event => {
+const handleThoughtSubmit = event => {
   event.preventDefault();
 
   const thoughtName = $thoughtForm.querySelector('#thought-name').value;
   const createdBy = $thoughtForm.querySelector('#created-by').value;
   const size = $thoughtForm.querySelector('#thought-size').value;
-  const toppings = [...$thoughtForm.querySelectorAll('[name=topping]:checked')].map(topping => {
-    return topping.value;
+  const reactions = [...$thoughtForm.querySelectorAll('[name=reaction]:checked')].map(reaction => {
+    return reaction.value;
   });
 
-  if (!thoughtName || !createdBy || !toppings.length) {
+  if (!thoughtName || !createdBy || !reactions.length) {
     return;
   }
 
-  const formData = { thoughtName, createdBy, size, toppings };
+  const formData = { thoughtName, createdBy, size, reactions };
 };
 
-$thoughtForm.addEventListener('submit', handlethoughtSubmit);
-$addToppingBtn.addEventListener('click', handleAddTopping);
+$thoughtForm.addEventListener('submit', handleThoughtSubmit);
+$addReactionBtn.addEventListener('click', handleAddReaction);

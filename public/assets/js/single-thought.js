@@ -3,25 +3,25 @@ const $thoughtName = document.querySelector('#thought-name');
 const $createdBy = document.querySelector('#created-by');
 const $createdAt = document.querySelector('#created-at');
 const $size = document.querySelector('#size');
-const $toppingsList = document.querySelector('#toppings-list');
+const $reactionsList = document.querySelector('#reactions-list');
 const $commentSection = document.querySelector('#comment-section');
 const $newCommentForm = document.querySelector('#new-comment-form');
 
 let thoughtId;
 
-function printthought(thoughtData) {
+function printThought(thoughtData) {
   console.log(thoughtData);
 
   thoughtId = thoughtData._id;
 
-  const { thoughtName, createdBy, createdAt, size, toppings, comments } = thoughtData;
+  const { thoughtName, createdBy, createdAt, size, reactions, comments } = thoughtData;
 
   $thoughtName.textContent = thoughtName;
   $createdBy.textContent = createdBy;
   $createdAt.textContent = createdAt;
   $size.textContent = size;
-  $toppingsList.innerHTML = toppings
-    .map(topping => `<span class="col-auto m-2 text-center btn">${topping}</span>`)
+  $reactionsList.innerHTML = reactions
+    .map(reaction => `<span class="col-auto m-2 text-center btn">${reaction}</span>`)
     .join('');
 
   if (comments && comments.length) {
@@ -40,14 +40,12 @@ function printComment(comment) {
       <h5 class="text-dark">${comment.writtenBy} commented on ${comment.createdAt}:</h5>
       <p>${comment.commentBody}</p>
       <div class="bg-dark ml-3 p-2 rounded" >
-        ${
-          comment.replies && comment.replies.length
-            ? `<h5>${comment.replies.length} ${
-                comment.replies.length === 1 ? 'Reply' : 'Replies'
-              }</h5>
+        ${comment.replies && comment.replies.length
+      ? `<h5>${comment.replies.length} ${comment.replies.length === 1 ? 'Reply' : 'Replies'
+      }</h5>
         ${comment.replies.map(printReply).join('')}`
-            : '<h5 class="p-1">No replies yet!</h5>'
-        }
+      : '<h5 class="p-1">No replies yet!</h5>'
+    }
       </div>
       <form class="reply-form mt-3" data-commentid='${comment._id}'>
         <div class="mb-3">
@@ -108,7 +106,7 @@ function handleNewReplySubmit(event) {
   const formData = { writtenBy, replyBody };
 }
 
-$backBtn.addEventListener('click', function() {
+$backBtn.addEventListener('click', function () {
   window.history.back();
 });
 
