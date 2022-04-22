@@ -7,7 +7,7 @@ const thoughtController = {
     //GET ALL
     getAllThought(req, res) {
         Thought.find({})
-            .then(dbThoughtData => res, json(dbThoughtData))
+            .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
                 console.log(err);
                 res.status(400).json(err);
@@ -58,7 +58,7 @@ const thoughtController = {
                     res.status(404).json({ message: 'No thought note found with this id!' });
                     return;
                 }
-                res.json(dbPizzaData);
+                res.json(dbThoughtData);
             })
             .catch(err => res.status(400).json(err));
     }

@@ -4,11 +4,15 @@ const { Schema, model } = require('mongoose');
 const ThoughtSchema = new Schema({
 
     thoughtName: {
-        type: String
+        type: String,
+        trim: true,
+        required: 'A title is required.'
     },
 
     createdBy: {
-        type: String
+        type: String,
+        trim: true,
+        required: 'An author is required'
 
         //username (The user that created this thought)
         //String
@@ -23,7 +27,11 @@ const ThoughtSchema = new Schema({
     },
 
     thoughtText: {
-        type: String
+        type: String,
+        trim: true,
+        required: 'At least one word is required',
+        minLength: 1,
+        maxLength: 280
 
         //Required
         //Must be between 1 and 280 characters
