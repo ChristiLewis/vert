@@ -12,16 +12,16 @@ const continueController = {
                     { new: true }
                 );
             })
-            .then(dbThought => {
+            .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({ message: 'No thought note found with this id!' });
                     return;
                 }
-                res.json(dbPizzaData);
+                res.json(dbThoughtData);
             })
             .catch(err => res.json(err));
     },
-
+    //ADDREPLY
     addReply({ params, body }, res) {
         Continue.findOneAndUpdate(
             { _id: params.continueId },

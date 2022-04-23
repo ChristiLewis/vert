@@ -7,7 +7,7 @@ const thoughtController = {
     //GET ALL
     getAllThought(req, res) {
         Thought.find({})
-            //ADD .POPULATE METHOD TO SEE THE ACTUAL COMMENTS ASSOCIATED WITH THE PIZZA INSTEAD OF ONLY THE OBJECTID
+            //ADD .POPULATE METHOD TO SEE THE ACTUAL CONTINUES ASSOCIATED WITH THE THOUGHT INSTEAD OF ONLY THE OBJECTID
             .populate({
                 path: 'continues',
                 select: '-_v'
@@ -26,7 +26,7 @@ const thoughtController = {
     //GET ONE BY ID
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
-            //ADD .POPULATE METHOD TO SEE THE ACTUAL COMMENTS ASSOCIATED WITH THE PIZZA INSTEAD OF ONLY THE OBJECTID
+            //ADD .POPULATE METHOD TO SEE THE ACTUAL CONTINUES ASSOCIATED WITH THE THOUGHT INSTEAD OF ONLY THE OBJECTID
             .populate({
                 path: 'continues',
                 select: '-_v'
