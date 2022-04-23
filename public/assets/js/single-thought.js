@@ -2,10 +2,10 @@ const $backBtn = document.querySelector('#back-btn');
 const $thoughtName = document.querySelector('#thought-name');
 const $createdBy = document.querySelector('#created-by');
 const $createdAt = document.querySelector('#created-at');
-const $size = document.querySelector('#size');
+const $thoughtText = document.querySelector('#thoughtText');
 const $reactionsList = document.querySelector('#reactions-list');
-const $commentSection = document.querySelector('#comment-section');
-const $newCommentForm = document.querySelector('#new-comment-form');
+const $continueSection = document.querySelector('#continue-section');
+const $newcontinueForm = document.querySelector('#new-continue-form');
 
 let thoughtId;
 
@@ -14,31 +14,32 @@ function printThought(thoughtData) {
 
   thoughtId = thoughtData._id;
 
-  const { thoughtName, createdBy, createdAt, size, reactions, comments } = thoughtData;
+  const { thoughtName, createdBy, createdAt, thoughtText, reactions, continues } = thoughtData;
 
   $thoughtName.textContent = thoughtName;
   $createdBy.textContent = createdBy;
   $createdAt.textContent = createdAt;
-  $size.textContent = size;
+  $thoughtText.textContent = thoughtText;
   $reactionsList.innerHTML = reactions
     .map(reaction => `<span class="col-auto m-2 text-center btn">${reaction}</span>`)
     .join('');
 
-  if (comments && comments.length) {
-    comments.forEach(printComment);
+  if (continues && continues.length) {
+    continues.forEach(printContinue);
   } else {
-    $commentSection.innerHTML = '<h4 class="bg-dark p-3 rounded">No comments yet!</h4>';
+    $continueSection.innerHTML = '<h4 class="bg-dark p-3 rounded">No continues yet!</h4>';
   }
 }
 
-function printComment(comment) {
-  // make div to hold comment and subcomments
-  const commentDiv = document.createElement('div');
-  commentDiv.classList.add('my-2', 'card', 'p-2', 'w-100', 'text-dark', 'rounded');
+function printContinue(comment) {
 
-  const commentContent = `
-      <h5 class="text-dark">${comment.writtenBy} commented on ${comment.createdAt}:</h5>
-      <p>${comment.commentBody}</p>
+  // make div to hold continue and subcontinues
+  const continueDiv = document.createElement('div');
+  continueDiv.classList.add('my-2', 'card', 'p-2', 'w-100', 'text-dark', 'rounded');
+
+  const continueContent = `
+      <h5 class="text-dark">${comment.writtenBy} continued on ${comment.createdAt}:</h5 >
+      <p>${comment.continueBody}</p>
       <div class="bg-dark ml-3 p-2 rounded" >
         ${comment.replies && comment.replies.length
       ? `<h5>${comment.replies.length} ${comment.replies.length === 1 ? 'Reply' : 'Replies'
@@ -47,7 +48,7 @@ function printComment(comment) {
       : '<h5 class="p-1">No replies yet!</h5>'
     }
       </div>
-      <form class="reply-form mt-3" data-commentid='${comment._id}'>
+      <form class="reply-form mt-3" data-continueid='${comment._id}'>
         <div class="mb-3">
           <label for="reply-name">Leave Your Name</label>
           <input class="form-input" name="reply-name" required />
@@ -59,32 +60,32 @@ function printComment(comment) {
 
         <button class="mt-2 btn display-block w-100">Add Reply</button>
       </form>
-  `;
+`;
 
-  commentDiv.innerHTML = commentContent;
-  $commentSection.prepend(commentDiv);
+  continueDiv.innerHTML = continueContent;
+  $continueSection.prepend(continueDiv);
 }
 
 function printReply(reply) {
   return `
-  <div class="card p-2 rounded bg-secondary">
+  < div class="card p-2 rounded bg-secondary" >
     <p>${reply.writtenBy} replied on ${reply.createdAt}:</p>
     <p>${reply.replyBody}</p>
-  </div>
-`;
+  </div >
+  `;
 }
 
-function handleNewCommentSubmit(event) {
+function handleNewContinueSubmit(event) {
   event.preventDefault();
 
-  const commentBody = $newCommentForm.querySelector('#comment').value;
-  const writtenBy = $newCommentForm.querySelector('#written-by').value;
+  const continueBody = $newContinueForm.querySelector('#continue').value;
+  const writtenBy = $newContinueForm.querySelector('#written-by').value;
 
-  if (!commentBody || !writtenBy) {
+  if (!continueBody || !writtenBy) {
     return false;
   }
 
-  const formData = { commentBody, writtenBy };
+  const formData = { continueBody, writtenBy };
 }
 
 function handleNewReplySubmit(event) {
@@ -94,7 +95,7 @@ function handleNewReplySubmit(event) {
     return false;
   }
 
-  const commentId = event.target.getAttribute('data-commentid');
+  const continueId = event.target.getAttribute('data-continueid');
 
   const writtenBy = event.target.querySelector('[name=reply-name]').value;
   const replyBody = event.target.querySelector('[name=reply]').value;
@@ -110,5 +111,5 @@ $backBtn.addEventListener('click', function () {
   window.history.back();
 });
 
-$newCommentForm.addEventListener('submit', handleNewCommentSubmit);
-$commentSection.addEventListener('submit', handleNewReplySubmit);
+$newContinueForm.addEventListener('submit', handleNewContinueSubmit);
+$continueSection.addEventListener('submit', handleNewReplySubmit);

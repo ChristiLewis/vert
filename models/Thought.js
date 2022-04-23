@@ -54,6 +54,8 @@ const ThoughtSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            //ACTIVATE GETTERS FOR THE DATEFORMAT FUNCTIONALITY
+            getters: true
         },
         //MONGOOSE RETURNS THIS VIRTUAL SO THE ID IS NA
         id: false

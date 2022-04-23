@@ -1,6 +1,18 @@
 const $thoughtList = document.querySelector('#thought-list');
 
-const printThought = ({ _id, thoughtName, reactions, size, commentCount, createdBy, createdAt }) => {
+//TIE IN API CALLS
+const getThoughtList = () => {
+  fetch('/api/thoughts')
+    .then(response => response.json())
+    .then(thoughtListArr => {
+      thoughtListArr.forEach(printThought);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const printThought = ({ _id, thoughtName, reactions, thoughtText, continueCount, createdBy, createdAt }) => {
   const thoughtCard = `
     <div class="col-12 col-lg-6 flex-row">
       <div class="card w-100 flex-column">
@@ -8,8 +20,8 @@ const printThought = ({ _id, thoughtName, reactions, size, commentCount, created
         <div class="card-body flex-column col-auto">
           <h4 class="text-dark">By ${createdBy}</h4>
           <p>On ${createdAt}</p>
-          <p>${commentCount} Comments</p>
-          <h5 class="text-dark">Suggested Size: ${size}
+          <p>${continueCount} Continues</p>
+          <h5 class="text-dark">Suggested thoughtText: ${thoughtText}
           <h5 class="text-dark">reactions</h5>
           <ul>
             ${reactions
@@ -26,3 +38,5 @@ const printThought = ({ _id, thoughtName, reactions, size, commentCount, created
 
   $thoughtList.innerHTML += thoughtCard;
 };
+
+getThoughtList();
