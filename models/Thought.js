@@ -1,5 +1,6 @@
 //ONLY IMPORT WHAT YOU NEED FROM THE MONGOOSE LIBRARY
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const ThoughtSchema = new Schema(
     {
@@ -23,8 +24,9 @@ const ThoughtSchema = new Schema(
         createdAt: {
             type: Date,
             //Set default value to the current timestamp
-            default: Date.now
+            default: Date.now,
             //Use a getter method to format the timestamp on query
+            get: createdAtVal => dateFormat(createdAtVal)
         },
 
         thoughtText: {
@@ -56,7 +58,7 @@ const ThoughtSchema = new Schema(
         //MONGOOSE RETURNS THIS VIRTUAL SO THE ID IS NA
         id: false
     }
-    
+
 );
 
 //ADD VIRTUAL TO COUNT AND TRACK NUMBER OF CONTINUATIONS MADE ON RETRIEVAL

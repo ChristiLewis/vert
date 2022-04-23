@@ -7,6 +7,15 @@ const thoughtController = {
     //GET ALL
     getAllThought(req, res) {
         Thought.find({})
+            //ADD .POPULATE METHOD TO SEE THE ACTUAL COMMENTS ASSOCIATED WITH THE PIZZA INSTEAD OF ONLY THE OBJECTID
+            .populate({
+                path: 'continues',
+                select: '-_v'
+            })
+            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE MODEL TOO
+            .select('-_v')
+            //.SORT() METHOD IN DESCENDING ORDER
+            .sort({ _id: -1 })
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
                 console.log(err);
@@ -17,6 +26,13 @@ const thoughtController = {
     //GET ONE BY ID
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
+            //ADD .POPULATE METHOD TO SEE THE ACTUAL COMMENTS ASSOCIATED WITH THE PIZZA INSTEAD OF ONLY THE OBJECTID
+            .populate({
+                path: 'continues',
+                select: '-_v'
+            })
+            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE MODEL TOO
+            .select('-_v')
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({ message: 'No thought note found with this id!' });
