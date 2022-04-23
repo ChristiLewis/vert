@@ -41,7 +41,7 @@ const handleThoughtSubmit = event => {
 
   const thoughtName = $thoughtForm.querySelector('#thought-name').value;
   const createdBy = $thoughtForm.querySelector('#created-by').value;
-  const size = $thoughtForm.querySelector('#thought-size').value;
+  const thoughtText = $thoughtForm.querySelector('#thought-thoughtText').value;
   const reactions = [...$thoughtForm.querySelectorAll('[name=reaction]:checked')].map(reaction => {
     return reaction.value;
   });
@@ -50,7 +50,7 @@ const handleThoughtSubmit = event => {
     return;
   }
 
-  const formData = { thoughtName, createdBy, size, reactions };
+  const formData = { thoughtName, createdBy, thoughtText, reactions };
 };
 
 $thoughtForm.addEventListener('submit', handleThoughtSubmit);
