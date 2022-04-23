@@ -1,3 +1,5 @@
+//I THINK THIS IS IN THE WRONG PLACE-ERROR const res = require("express/lib/response");
+
 const $backBtn = document.querySelector('#back-btn');
 const $thoughtName = document.querySelector('#thought-name');
 const $createdBy = document.querySelector('#created-by');
@@ -5,9 +7,30 @@ const $createdAt = document.querySelector('#created-at');
 const $thoughtText = document.querySelector('#thoughtText');
 const $reactionsList = document.querySelector('#reactions-list');
 const $continueSection = document.querySelector('#continue-section');
-const $newcontinueForm = document.querySelector('#new-continue-form');
+const $newContinueForm = document.querySelector('#new-continue-form');
 
 let thoughtId;
+
+function getThought() {
+  //GET ID OF A THOUGHT
+  const searchParams = new URLSearchParams(document.location.search.substring(1));
+  const thoughtId = searchParams.get('id');
+  //GET THOUGHTINFO
+  fetch(`/api/thoughts/${thoughtId}`)
+    .then(response => {
+      //CHECK FOR ERRORS
+      if (!response.ok) {
+        throw new Error({ message: 'Something went wrong!' });
+      }
+      return response.json();
+    })
+    .then(printThought)
+    .catch(err => {
+      console.log(err);
+      alert('Cannot find a thought note with this id! Taking you back.');
+      window.history.back();
+    });
+}
 
 function printThought(thoughtData) {
   console.log(thoughtData);
@@ -33,7 +56,7 @@ function printThought(thoughtData) {
 
 function printContinue(comment) {
 
-  // make div to hold continue and subcontinues
+  // make div to hold continue and SUBcontinueS
   const continueDiv = document.createElement('div');
   continueDiv.classList.add('my-2', 'card', 'p-2', 'w-100', 'text-dark', 'rounded');
 
@@ -86,6 +109,28 @@ function handleNewContinueSubmit(event) {
   }
 
   const formData = { continueBody, writtenBy };
+
+  fetch(`/api/continues/${thoughtId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      response.json();
+    })
+    .then(continueResponse => {
+      console.log(continueResponse);
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function handleNewReplySubmit(event) {
@@ -113,3 +158,6 @@ $backBtn.addEventListener('click', function () {
 
 $newContinueForm.addEventListener('submit', handleNewContinueSubmit);
 $continueSection.addEventListener('submit', handleNewReplySubmit);
+
+//DON'T FORGET TO CALL THE FUNCTION!
+getThought();

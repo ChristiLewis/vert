@@ -65,7 +65,7 @@ const ThoughtSchema = new Schema(
 
 //ADD VIRTUAL TO COUNT AND TRACK NUMBER OF CONTINUATIONS MADE ON RETRIEVAL
 ThoughtSchema.virtual('continueCount').get(function () {
-    return this.continues.length;
+    return this.continues.reduce((total, comment) => total + comment.replies.length + 1, 0);
 });
 
 
