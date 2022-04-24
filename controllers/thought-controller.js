@@ -55,7 +55,8 @@ const thoughtController = {
 
     //UPDATE MODEL
     updateThought({ params, body }, res) {
-        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true })
+        //ADD VALIDATOR OPTION SETTING
+        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({ message: 'No thought note found with this id!' });

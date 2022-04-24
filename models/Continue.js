@@ -11,10 +11,14 @@ const ReplySchema = new Schema(
             default: () => new Types.ObjectId()
         },
         replyBody: {
-            type: String
+            type: String,
+            required: 'No time to be shy, this is required!',
+            trim: true
         },
         writtenBy: {
-            type: String
+            type: String,
+            required: 'We need an author!',
+            trim: true
         },
         createdAt: {
             type: Date,
@@ -32,10 +36,14 @@ const ReplySchema = new Schema(
 const ContinueSchema = new Schema(
     {
         writtenBy: {
-            type: String
+            type: String,
+            required: 'We need an author!',
+            trim: true
         },
         continueBody: {
-            type: String
+            type: String,
+            required: 'No time to be shy, this is required!',
+            trim: true
         },
         createdAt: {
             type: Date,

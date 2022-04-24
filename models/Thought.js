@@ -8,7 +8,7 @@ const ThoughtSchema = new Schema(
         thoughtName: {
             type: String,
             trim: true,
-            required: 'A title is required.'
+            required: 'A title is required!'
         },
 
         createdBy: {

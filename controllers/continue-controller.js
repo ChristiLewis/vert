@@ -26,7 +26,7 @@ const continueController = {
         Continue.findOneAndUpdate(
             { _id: params.continueId },
             { $push: { replies: body } },
-            { new: true }
+            { new: true, runValidators: true }
         )
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
