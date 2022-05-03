@@ -3,23 +3,23 @@ const router = require('express').Router();
 const {
     addContinue,
     removeContinue,
-    addReply,
-    removeReply
+    addReaction,
+    removeReaction
 } = require('../../controllers/continue-controller');
 
 //SET A POST ROUTE TO /API/CONTINUES/:THOUGHTID VIA THE ADDCONTINUE() METHOD
 router.route('/:thoughtId').post(addContinue);
 
-//USE A DELETE CALLBACK VIA REMOVECOMMENT() METHOD SET-UP AS THE ROUTE /API/CONTINUES/:THOUGHTID/:CONTINUEID  ---> ADD REPLY UPDATING FUNCTIONALITY
+//USE A DELETE CALLBACK VIA REMOVECOMMENT() METHOD SET-UP AS THE ROUTE /API/CONTINUES/:THOUGHTID/:CONTINUEID  ---> ADD Reaction UPDATING FUNCTIONALITY
 router
     .route('/:thoughtId/:continueId')
-    .put(addReply)
+    .put(addReaction)
     .delete(removeContinue);
 
-//DELETE ROUTE FOR REPLY
+//DELETE ROUTE FOR Reaction
 router
-    .route('/:thoughtId/:continueId/:replyId')
-    .delete(removeReply);
+    .route('/:thoughtId/:continueId/:reactionId')
+    .delete(removeReaction);
 
 //EXPORT THIS ROUTER
 module.exports = router;

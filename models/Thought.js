@@ -39,9 +39,8 @@ const ThoughtSchema = new Schema(
             //Required
             //Must be between 1 and 280 characters
         },
-        reactions: [],
-        //reactions (These are like replies)
-        //Array of nested documents created with the reactionSchema
+        keywords: [],
+
 
         continues: [
             {
@@ -65,7 +64,7 @@ const ThoughtSchema = new Schema(
 
 //ADD VIRTUAL TO COUNT AND TRACK NUMBER OF CONTINUATIONS MADE ON RETRIEVAL
 ThoughtSchema.virtual('continueCount').get(function () {
-    return this.continues.reduce((total,comment) => total + comment.replies.length + 1, 0);
+    return this.continues.reduce((total,Continue) => total + Continue.reactions.length + 1, 0);
 });
 
 
