@@ -3,6 +3,16 @@ const { User } = require('../models');
 
 const userController = {
     //FUNCTIONS AS METHODS GO HERE
+    //POST NEW USER
+    postNewUser(req, res) {
+        User.create(user)
+            .then(dbUser => {
+                res.json(dbUser);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    },
 
     //GET ALL
     getAllUser(req, res) {

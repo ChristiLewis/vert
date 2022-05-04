@@ -1,6 +1,6 @@
 //IMPORT THE PARTS NEEDED FROM THE MONGOOSE LIB
 const { Schema, model } = require('mongoose');
-const friendSchema = require('./Friend');
+
 
 const UserSchema = new Schema(
     {
@@ -13,9 +13,11 @@ const UserSchema = new Schema(
 
         email: {
             type: String,
-            required: 'Please enter a valid email address',
+            trim: true,
+            required: 'A valid email address is required',
             unique: true,
-            match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
+            //REGEX FROM ADRIAN BIENAS https://stackoverflow.com/users/9158604/adrian-bienias
+            match: [/^.+@(?:[\w-]+\.)+\w+$/, 'Please enter a valid e-mail address']
         },
 
         thoughts: [
@@ -31,18 +33,17 @@ const UserSchema = new Schema(
                 ref: 'Continue'
             }
         ],
-        friends: [friendSchema]
-        // friends: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         default: () => new Types.ObjectId(),
-        //         ref: 'User'
-        //     }
-        // ]
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ]
     },
     {
         toJSON: {
             virtuals: true,
+            getters: true
         },
         //MONGOOSE RETURNS THIS VIRTUAL SO THE ID IS NA
         id: false
@@ -51,7 +52,7 @@ const UserSchema = new Schema(
 
 //ADD VIRTUAL TO COUNT THE NUMBER OF COMMENTS ON RETRIEVAL
 UserSchema.virtual('friendCount').get(function () {
-    return this.friends.reduce((total, friend) => total + friend.reactions.length + 1, 0);
+    return this.friends.reduce((total, friend) => total + friend.replies.length + 1, 0);
 });
 
 //MAKE THE MODEL
