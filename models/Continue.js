@@ -6,7 +6,7 @@ const dateFormat = require('../utils/dateFormat');
 //Array of nested documents created with the reactionSchema
 const reactionSchema = new Schema(
     {
-        //CUSTOM ID TO DIFFERENTIATE FROM UNIVERSAL PARENT COMMENT ID
+        //CUSTOM ID TO DIFFERENTIATE FROM UNIVERSAL PARENT CONTINUE ID
         reactionId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId()

@@ -9,6 +9,6 @@ const userRoutes = require('../../server')
 router.use('/continues', continueRoutes);
 // add prefix of `/thoughts` to routes created in `thought-routes.js`
 router.use('/thoughts', thoughtRoutes);
-router.use('/users', userRoutes);
+// router.use('/', userRoutes);
 
 module.exports = router;
