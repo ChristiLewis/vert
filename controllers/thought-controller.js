@@ -12,7 +12,7 @@ const thoughtController = {
                 path: 'continues',
                 select: '-_v'
             })
-            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE MODEL TOO
+            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE THOUGHT MODEL TOO
             .select('-_v')
             //.SORT() METHOD IN DESCENDING ORDER
             .sort({ _id: -1 })
@@ -31,7 +31,7 @@ const thoughtController = {
                 path: 'continues',
                 select: '-_v'
             })
-            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE MODEL TOO
+            //ADD .SELECT() METHOD TO EDIT OUT THE RETURN OF THE _VFIELD FOR THE THOUGHT MODEL TOO
             .select('-_v')
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
