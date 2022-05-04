@@ -2,7 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 //IMPORT FOR GETTER FUNCTIONALITY
 const dateFormat = require('../utils/dateFormat');
 
-//reactions (These are like reactions)
+//reactions (These are like replies)
 //Array of nested documents created with the reactionSchema
 const reactionSchema = new Schema(
     {

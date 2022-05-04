@@ -4,14 +4,21 @@ const { User } = require('../models');
 const userController = {
     //FUNCTIONS AS METHODS GO HERE
     //POST NEW USER
-    postNewUser(req, res) {
-        User.create(user)
-            .then(dbUser => {
-                res.json(dbUser);
-            })
-            .catch(err => {
-                res.json(err);
-            });
+    // postNewUser(req, res) {
+    //     User.create(user)
+    //         .then(dbUser => {
+    //             res.json(dbUser);
+    //         })
+    //         .catch(err => {
+    //             res.json(err);
+    //         });
+    // },
+
+    //CREATE MODEL
+    createUser({ body }, res) {
+        User.create(body)
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.status(400).json(err));
     },
 
     //GET ALL
@@ -56,12 +63,6 @@ const userController = {
             });
     },
 
-    //CREATE MODEL
-    createUser({ body }, res) {
-        User.create(body)
-            .then(dbUserData => res.json(dbUserData))
-            .catch(err => res.status(400).json(err));
-    },
 
     //UPDATE MODEL
     updateUser({ params, body }, res) {
