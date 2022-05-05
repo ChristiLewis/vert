@@ -89,8 +89,37 @@ const userController = {
                 res.json(dbUserData);
             })
             .catch(err => res.status(400).json(err));
-    }
+    },
 
+    //ADD FRIEND TO USER
+    addFriend({  body }, res) {
+    User.findOneAndUpdate({_id: body.userId }, {$push: { friends: body.friendId}},{new:true})
+            .then((userData) => {
+                if(!userData){
+                    return res.status(404).json({message:'There is new'})
+                }
+                res.json()
+            })
+            .then(dbThoughtData => {
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No thought note found with this id!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    //REMOVEReaction
+    removeReaction({ params }, res) {
+        Continue.findOneAndUpdate(
+            { _id: params.continueId },
+            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { new: true }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.json(err));
+    }
 }
 
 module.exports = userController;
