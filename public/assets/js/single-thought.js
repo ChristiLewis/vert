@@ -5,7 +5,7 @@ const $thoughtName = document.querySelector('#thought-name');
 const $createdBy = document.querySelector('#created-by');
 const $createdAt = document.querySelector('#created-at');
 const $thoughtText = document.querySelector('#thoughtText');
-const $reactionsList = document.querySelector('#reactions-list');
+const $keywordsList = document.querySelector('#keywords-list');
 const $continueSection = document.querySelector('#continue-section');
 const $newContinueForm = document.querySelector('#new-continue-form');
 
@@ -37,14 +37,14 @@ function printThought(thoughtData) {
 
   thoughtId = thoughtData._id;
 
-  const { thoughtName, createdBy, createdAt, thoughtText, reactions, continues } = thoughtData;
+  const { thoughtName, createdBy, createdAt, thoughtText, keywords, continues } = thoughtData;
 
   $thoughtName.textContent = thoughtName;
   $createdBy.textContent = createdBy;
   $createdAt.textContent = createdAt;
   $thoughtText.textContent = thoughtText;
-  $reactionsList.innerHTML = reactions
-    .map(reaction => `<span class="col-auto m-2 text-center btn">${reaction}</span>`)
+  $keywordsList.innerHTML = keywords
+    .map(keyword => `<span class="col-auto m-2 text-center btn">${keyword}</span>`)
     .join('');
 
   if (continues && continues.length) {
@@ -64,24 +64,24 @@ function printContinue(Continue) {
       <h5 class="text-dark">${Continue.writtenBy} continued on ${Continue.createdAt}:</h5 >
       <p>${Continue.continueBody}</p>
       <div class="bg-dark ml-3 p-2 rounded" >
-        ${Continue.replies && Continue.replies.length
-      ? `<h5>${Continue.replies.length} ${Continue.replies.length === 1 ? 'Reply' : 'Replies'
+        ${Continue.reactions && Continue.reactions.length
+      ? `<h5>${Continue.reactions.length} ${Continue.reactions.length === 1 ? 'reaction' : 'Reactions'
       }</h5>
-        ${Continue.replies.map(printReply).join('')}`
-      : '<h5 class="p-1">No replies yet!</h5>'
+        ${Continue.reactions.map(printReaction).join('')}`
+      : '<h5 class="p-1">No reactions yet!</h5>'
     }
       </div>
-      <form class="reply-form mt-3" data-continueid='${Continue._id}'>
+      <form class="reaction-form mt-3" data-continueid='${Continue._id}'>
         <div class="mb-3">
-          <label for="reply-name">Leave Your Name</label>
-          <input class="form-input" name="reply-name" required />
+          <label for="reaction-name">Leave Your Name</label>
+          <input class="form-input" name="reaction-name" required />
         </div>
         <div class="mb-3">
-          <label for="reply">Leave a Reply</label>
-          <textarea class="form-textarea form-input"  name="reply" required></textarea>
+          <label for="reaction">Leave a reaction</label>
+          <textarea class="form-textarea form-input"  name="reaction" required></textarea>
         </div>
 
-        <button class="mt-2 btn display-block w-100">Add Reply</button>
+        <button class="mt-2 btn display-block w-100">Add reaction</button>
       </form>
 `;
 
@@ -89,11 +89,11 @@ function printContinue(Continue) {
   $continueSection.prepend(ContinueDiv);
 }
 
-function printReply(reply) {
+function printReaction(reaction) {
   return `
   <div class="card p-2 rounded bg-secondary">
-    <p>${reply.writtenBy} replied on ${reply.createdAt}:</p>
-    <p>${reply.replyBody}</p>
+    <p>${reaction.writtenBy} replied on ${reaction.createdAt}:</p>
+    <p>${reaction.reactionBody}</p>
   </div >
   `;
 }
@@ -133,23 +133,23 @@ function handleNewContinueSubmit(event) {
     });
 }
 
-function handleNewReplySubmit(event) {
+function handleNewReactionSubmit(event) {
   event.preventDefault();
 
-  if (!event.target.matches('.reply-form')) {
+  if (!event.target.matches('.reaction-form')) {
     return false;
   }
 
   const continueId = event.target.getAttribute('data-continueid');
 
-  const writtenBy = event.target.querySelector('[name=reply-name]').value;
-  const replyBody = event.target.querySelector('[name=reply]').value;
+  const writtenBy = event.target.querySelector('[name=reaction-name]').value;
+  const reactionBody = event.target.querySelector('[name=reaction]').value;
 
-  if (!replyBody || !writtenBy) {
+  if (!reactionBody || !writtenBy) {
     return false;
   }
 
-  const formData = { writtenBy, replyBody };
+  const formData = { writtenBy, reactionBody };
   //FETCH FUNCTIONALITY CONNECTS THE BACKEND TO THE FRONTEND!
   fetch(`/api/continues/${thoughtId}/${continueId}`, {
     method: 'PUT',
@@ -179,7 +179,7 @@ $backBtn.addEventListener('click', function () {
 });
 
 $newContinueForm.addEventListener('submit', handleNewContinueSubmit);
-$continueSection.addEventListener('submit', handleNewReplySubmit);
+$continueSection.addEventListener('submit', handleNewReactionSubmit);
 
 //DON'T FORGET TO CALL THE FUNCTION!
 getThought();

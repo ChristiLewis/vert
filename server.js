@@ -1,6 +1,9 @@
 //IMPORT TO INITIALIZE MONGOOSE FOR MONGODB
 const mongoose = require('mongoose');
 const express = require('express');
+const { db } = require('./models/Thought');
+const res = require('express/lib/response');
+const { User } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,4 +23,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/vert', {
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);
 
+
+//CALL VIA THE EVENT LISTENER
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

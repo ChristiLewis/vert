@@ -12,7 +12,7 @@ const getThoughtList = () => {
     });
 };
 
-const printThought = ({ _id, thoughtName, reactions, thoughtText, continueCount, createdBy, createdAt }) => {
+const printThought = ({ _id, thoughtName, keywords, thoughtText, continueCount, createdBy, createdAt }) => {
   const thoughtCard = `
     <div class="col-12 col-lg-6 flex-row">
       <div class="card w-100 flex-column">
@@ -22,11 +22,11 @@ const printThought = ({ _id, thoughtName, reactions, thoughtText, continueCount,
           <p>On ${createdAt}</p>
           <p>${continueCount} Continues</p>
           <h5 class="text-dark">Suggested thoughtText: ${thoughtText}
-          <h5 class="text-dark">reactions</h5>
+          <h5 class="text-dark">keywords</h5>
           <ul>
-            ${reactions
-      .map(reaction => {
-        return `<li>${reaction}</li>`;
+            ${keywords
+      .map(keyword => {
+        return `<li>${keyword}</li>`;
       })
       .join('')}
           </ul>

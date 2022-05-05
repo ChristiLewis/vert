@@ -2,15 +2,16 @@ const { Schema, model, Types } = require('mongoose');
 //IMPORT FOR GETTER FUNCTIONALITY
 const dateFormat = require('../utils/dateFormat');
 
-
-const ReplySchema = new Schema(
+//reactions (These are like replies)
+//Array of nested documents created with the reactionSchema
+const reactionSchema = new Schema(
     {
-        //CUSTOM ID TO DIFFERENTIATE FROM UNIVERSAL PARENT COMMENT ID
-        replyId: {
+        //CUSTOM ID TO DIFFERENTIATE FROM UNIVERSAL PARENT CONTINUE ID
+        reactionId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId()
         },
-        replyBody: {
+        reactionBody: {
             type: String,
             required: 'No time to be shy, this is required!',
             trim: true
@@ -50,7 +51,7 @@ const ContinueSchema = new Schema(
             default: Date.now,
             get: createdAtVal => dateFormat(createdAtVal)
         },
-        replies: [ReplySchema]
+        reactions: [reactionSchema]
     },
     {
         toJSON: {
@@ -60,9 +61,9 @@ const ContinueSchema = new Schema(
     }
 );
 
-//ADD VIRTUAL TO COUNT THE NUMBER OF REPLIES ON RETRIEVAL
-ContinueSchema.virtual('replyCount').get(function () {
-    return this.replies.length;
+//ADD VIRTUAL TO COUNT THE NUMBER OF REACTIONS ON RETRIEVAL
+ContinueSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
 });
 
 const Continue = model('Continue', ContinueSchema);

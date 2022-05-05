@@ -21,11 +21,11 @@ const continueController = {
             })
             .catch(err => res.json(err));
     },
-    //ADDREPLY
-    addReply({ params, body }, res) {
+    //ADDReaction
+    addReaction({ params, body }, res) {
         Continue.findOneAndUpdate(
             { _id: params.continueId },
-            { $push: { replies: body } },
+            { $push: { reactions: body } },
             { new: true, runValidators: true }
         )
             .then(dbThoughtData => {
@@ -60,11 +60,11 @@ const continueController = {
             })
             .catch(err => res.json(err));
     },
-    //REMOVEREPLY
-    removeReply({ params }, res) {
+    //REMOVEReaction
+    removeReaction({ params }, res) {
         Continue.findOneAndUpdate(
             { _id: params.continueId },
-            { $pull: { replies: { replyId: params.replyId } } },
+            { $pull: { reactions: { reactionId: params.reactionId } } },
             { new: true }
         )
             .then(dbThoughtData => res.json(dbThoughtData))
