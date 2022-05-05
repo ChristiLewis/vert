@@ -1,12 +1,12 @@
 //IMPORT THE PARTS NEEDED FROM THE MONGOOSE LIB
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 
 const UserSchema = new Schema(
     {
         username: {
             type: String,
-            // unique: true,
+            unique: true,
             required: 'A Name is Required',
             trim: true
         },
@@ -15,7 +15,7 @@ const UserSchema = new Schema(
             type: String,
             trim: true,
             required: 'A valid email address is required',
-            // unique: true,
+            unique: true,
             //REGEX FROM ADRIAN BIENAS https://stackoverflow.com/users/9158604/adrian-bienias
             match: [/^.+@(?:[\w-]+\.)+\w+$/, 'Please enter a valid e-mail address']
         },
@@ -33,9 +33,11 @@ const UserSchema = new Schema(
                 ref: 'Continue'
             }
         ],
+
         friends: [
             {
                 type: Schema.Types.ObjectId,
+                default: () => new Types.ObjectId(),
                 ref: 'User'
             }
         ]

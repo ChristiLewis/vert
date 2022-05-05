@@ -61,7 +61,7 @@ const ContinueSchema = new Schema(
     }
 );
 
-//ADD VIRTUAL TO COUNT THE NUMBER OF reactions ON RETRIEVAL
+//ADD VIRTUAL TO COUNT THE NUMBER OF REACTIONS ON RETRIEVAL
 ContinueSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });

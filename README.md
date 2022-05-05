@@ -46,12 +46,13 @@ Using a NoSQL database, Vert's Mongoose models synced to its MongoDB database ca
 ## Usage
 
 Revised Criteria from the Module 18 Challenge:
->WHEN I open API GET routes in Insomnia for thoughts with users, and continuations of those thoughts.
-THEN the data for each of these routes is displayed in a formatted JSON
+>WHEN I open API GET routes in Insomnia for users, thoughts with authors, continuations of those thoughts, and reactions.
+THEN the data for each of these routes is displayed in a formatted JSON,
 WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete thoughts with continuations of thoughts in my database.
+THEN I am able to successfully create, update, and delete users and thoughts in my database.
 WHEN I test API POST and DELETE routes in Insomnia
-THEN I am able to successfully create and delete continuations to thoughts and add and remove replies to a continuation of a thought.
+THEN I am able to successfully create and delete reactions to continuations of thoughts.
+AS WELL AS add and remove reactions to a continuation of a thought or friends to a user's friend list.
 >
 
   * ![Preview Image](./public/assets/images/header-bg.jpg)
