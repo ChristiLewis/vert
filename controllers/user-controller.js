@@ -3,23 +3,6 @@ const { User } = require('../models');
 
 const userController = {
     //FUNCTIONS AS METHODS GO HERE
-    //POST NEW USER
-    // postNewUser(req, res) {
-    //     User.create(user)
-    //         .then(dbUser => {
-    //             res.json(dbUser);
-    //         })
-    //         .catch(err => {
-    //             res.json(err);
-    //         });
-    // },
-
-    //CREATE MODEL
-    createUser({ body }, res) {
-        User.create(body)
-            .then(dbUserData => res.json(dbUserData))
-            .catch(err => res.status(400).json(err));
-    },
 
     //GET ALL
     getAllUser(req, res) {
@@ -63,6 +46,13 @@ const userController = {
             });
     },
 
+    //CREATE MODEL
+    //POST NEW USER
+    createUser({ body }, res) {
+        User.create(body)
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.status(400).json(err));
+    },
 
     //UPDATE MODEL
     updateUser({ params, body }, res) {
@@ -91,33 +81,50 @@ const userController = {
             .catch(err => res.status(400).json(err));
     },
 
-    //ADD FRIEND TO USER
-    addFriend({  body }, res) {
-    User.findOneAndUpdate({_id: body.userId }, {$push: { friends: body.friendId}},{new:true})
-            .then((userData) => {
-                if(!userData){
-                    return res.status(404).json({message:'There is new'})
-                }
-                res.json()
-            })
-            .then(dbThoughtData => {
-                if (!dbThoughtData) {
-                    res.status(404).json({ message: 'No thought note found with this id!' });
+    // //ADD FRIEND TO USER TUTOR DEMO
+    // addFriend({ body }, res) {
+    //     User.findOneAndUpdate({ _id: body.userId }, { $push: { friends: body.friendId } }, { new: true })
+    //         .then((userData) => {
+    //             if (!userData) {
+    //                 return res.status(404).json({ message: 'There is new' })
+    //             }
+    //             res.json()
+    //         })
+    //         .then(dbThoughtData => {
+    //             if (!dbThoughtData) {
+    //                 res.status(404).json({ message: 'No thought note found with this id!' });
+    //                 return;
+    //             }
+    //             res.json(dbThoughtData);
+    //         })
+    //         .catch(err => res.json(err));
+    // },
+
+    //ADDFRIEND TO USER
+    addFriend({ params, body }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $push: { friends: body } },
+            { new: true, runValidators: true }
+        )
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No user found with this id!' });
                     return;
                 }
-                res.json(dbThoughtData);
+                res.json(dbUserData);
             })
             .catch(err => res.json(err));
     },
 
-    //REMOVEReaction
-    removeReaction({ params }, res) {
-        Continue.findOneAndUpdate(
-            { _id: params.continueId },
-            { $pull: { reactions: { reactionId: params.reactionId } } },
+    //REMOVEFRIEND FROM USER
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $pull: { friends: { friendId: params.friendId } } },
             { new: true }
         )
-            .then(dbThoughtData => res.json(dbThoughtData))
+            .then(dbUserData => res.json(dbUserData))
             .catch(err => res.json(err));
     }
 }

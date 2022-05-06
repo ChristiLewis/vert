@@ -7,7 +7,8 @@ const continueController = {
         console.log(body);
         Continue.create(body)
             .then(({ _id }) => {
-                return Thought.findOneAndUpdate({ _id: params.thoughtId },
+                return Thought.findOneAndUpdate(
+                    { _id: params.thoughtId },
                     { $push: { continues: _id } },
                     { new: true }
                 );
@@ -21,7 +22,7 @@ const continueController = {
             })
             .catch(err => res.json(err));
     },
-    //ADDReaction
+    //ADDREACTION
     addReaction({ params, body }, res) {
         Continue.findOneAndUpdate(
             { _id: params.continueId },
@@ -60,7 +61,7 @@ const continueController = {
             })
             .catch(err => res.json(err));
     },
-    //REMOVEReaction
+    //REMOVEREACTION
     removeReaction({ params }, res) {
         Continue.findOneAndUpdate(
             { _id: params.continueId },

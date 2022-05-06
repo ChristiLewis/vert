@@ -4,7 +4,7 @@ const dateFormat = require('../utils/dateFormat');
 
 //reactions (These are like replies)
 //Array of nested documents created with the reactionSchema
-const reactionSchema = new Schema(
+const ReactionSchema = new Schema(
     {
         //CUSTOM ID TO DIFFERENTIATE FROM UNIVERSAL PARENT CONTINUE ID
         reactionId: {
@@ -51,7 +51,7 @@ const ContinueSchema = new Schema(
             default: Date.now,
             get: createdAtVal => dateFormat(createdAtVal)
         },
-        reactions: [reactionSchema]
+        reactions: [ReactionSchema]
     },
     {
         toJSON: {
@@ -66,6 +66,7 @@ ContinueSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
 
+//MAKE THE MODEL
 const Continue = model('Continue', ContinueSchema);
 
 module.exports = Continue;
