@@ -23,15 +23,15 @@ router
 router
     .route('/:id')
     .get(getUserById)
-    .put(updateUser)
+    .post(updateUser)
     .delete(deleteUser);
 
 //SET A PUT UPDATE TO USER TO ADD A FRIEND AT API/USERS/:USERID/FRIENDS
 router
     .route('/:id/friends/')
-    .put(addFriend);
+    .post(addFriend);
 
-//SET DELETE TO USER TO REMOVE A FRIEND BYFRIENDID AT API/USERS/:USERID/FRIENDS/:FRIENDID
+//SET POST to ADD and DELETE TO USER TO REMOVE A FRIEND BYFRIENDID AT API/USERS/:USERID/FRIENDS/:FRIENDID
 router
     .route('/:id/friends/:friendId')
     .delete(removeFriend);

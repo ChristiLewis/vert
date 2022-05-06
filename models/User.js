@@ -1,12 +1,12 @@
 //IMPORT THE PARTS NEEDED FROM THE MONGOOSE LIB
-const { Schema, model } = require('mongoose', 'mongoose-unique-validator');
+const { Schema, model } = require('mongoose');
 
 //UNIQUE VALIDATOR FROM https://www.codegrepper.com/code-examples/javascript/mongoose+required+unique+validator
-//var mongoose = require('mongoose');
-// var uniqueValidator = require('mongoose-unique-validator');
+var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
-// var mySchema = mongoose.Schema(/* put your schema definition here */);
-// mySchema.plugin(uniqueValidator);
+var mySchema = mongoose.Schema(/* put your schema definition here */);
+mySchema.plugin(uniqueValidator);
 
 //EMAIL VALIDATOR STATEMENTS FROM https://www.codegrepper.com/code-examples/whatever/mongoose+validate+match+regex
 var validateEmail = function (email) {
@@ -42,9 +42,8 @@ const UserSchema = new Schema(
         email: {
             type: String,
             trim: true,
-            unique: true,
             required: 'A valid email address is required',
-            // unique: true,
+            unique: true,
             //REGEX FROM ADRIAN BIENAS https://stackoverflow.com/users/9158604/adrian-bienias
             // match: [/^.+@(?:[\w-]+\.)+\w+$/, 'Please enter a valid e-mail address']
             // FROM https://www.codegrepper.com/code-examples/whatever/mongoose+validate+match+regex
@@ -70,7 +69,6 @@ const UserSchema = new Schema(
         friends: [
             {
                 type: Schema.Types.ObjectId,
-                default: () => new Types.ObjectId(),
                 ref: 'User'
             }
         ]

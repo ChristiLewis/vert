@@ -82,40 +82,74 @@ const userController = {
     },
 
     // //ADD FRIEND TO USER TUTOR DEMO
-    // addFriend({ body }, res) {
-    //     User.findOneAndUpdate({ _id: body.userId }, { $push: { friends: body.friendId } }, { new: true })
-    //         .then((userData) => {
-    //             if (!userData) {
-    //                 return res.status(404).json({ message: 'There is new' })
-    //             }
-    //             res.json()
-    //         })
-    //         .then(dbThoughtData => {
-    //             if (!dbThoughtData) {
-    //                 res.status(404).json({ message: 'No thought note found with this id!' });
+    addFriend({ body }, res) {
+        User.findOneAndUpdate({ _id: body.userId }, { $addToSet: { friends: body.friendId } }, { new: true })
+            .then((userData) => {
+                if (!userData) {
+                    return res.status(404).json({ message: 'There is a new friend' })
+                }
+                res.json()
+            })
+            .then(dbThoughtData => {
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No thought note found with this id!' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    //ADDFRIEND TO USER
+    // addFriend({ params, body }, res) {
+    //     User.findOneAndUpdate(
+    //         { _id: params.userId },
+    //         { $addToSet: { friends: params.friendId } },
+    //         { new: true, runValidators: true }
+    //     )
+    //         .then(dbUserData => {
+    //             if (!dbUserData) {
+    //                 res.status(404).json({ message: 'No user found with this id!' });
     //                 return;
     //             }
-    //             res.json(dbThoughtData);
+    //             res.json(dbUserData);
     //         })
     //         .catch(err => res.json(err));
     // },
 
-    //ADDFRIEND TO USER
-    addFriend({ params, body }, res) {
-        User.findOneAndUpdate(
-            { _id: params.userId },
-            { $push: { friends: body } },
-            { new: true, runValidators: true }
-        )
-            .then(dbUserData => {
-                if (!dbUserData) {
-                    res.status(404).json({ message: 'No user found with this id!' });
-                    return;
-                }
-                res.json(dbUserData);
-            })
-            .catch(err => res.json(err));
-    },
+    // addFriend({ params }, res) {
+    //     User.findOneAndUpdate(
+    //         { _id: params.userId },
+    //         { $addToSet: { friends: params.friendId } },
+    //         { new: true }
+    //     )
+    //         .then(data => {
+    //             if (!data) {
+    //                 res.status(404).json({ message: 'No friend with this id!' });
+    //                 return;
+    //             }
+
+    //             User.findOneAndUpdate(
+    //                 { _id: params.friendId },
+    //                 { $addToSet: { friends: params.userId } },
+    //                 { new: true }
+    //             )
+
+    //                 .then(data => {
+    //                     if (!data) {
+    //                         res.status(404).json({ message: 'No friend with this id!' });
+    //                     }
+    //                     res.json(data);
+    //                 })
+    //                 .catch(err => {
+    //                     console.log(err);
+    //                     res.status(500).json(err);
+
+    //                 })
+    //         }
+    //         )
+    // },
+
 
     //REMOVEFRIEND FROM USER
     removeFriend({ params }, res) {
