@@ -1,5 +1,5 @@
 //IMPORT THE PARTS NEEDED FROM THE MONGOOSE LIB
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 //UNIQUE VALIDATOR FROM https://www.codegrepper.com/code-examples/javascript/mongoose+required+unique+validator
 var mongoose = require('mongoose');
@@ -83,9 +83,24 @@ const UserSchema = new Schema(
     }
 );
 
-//ADD VIRTUAL TO COUNT THE NUMBER OF COMMENTS ON RETRIEVAL
+//ADD VIRTUAL TO COUNT THE NUMBER OF COMMENTS ON RETRIEVAL-THIS DIDN'T WORK EXACTLY I ADDED A "+1"-ADDED TO ALL USERS' FRIEND COUNT
 UserSchema.virtual('friendCount').get(function () {
     return this.friends.length;
+});
+
+//ADD VIRTUAL TO COUNT AND TRACK NUMBER OF FRIENDS MADE ON RETRIEVAL-DOESN'T WORK
+// UserSchema.virtual('friendCount').get(function () {
+//     return this.friends.reduce((total, friend) => total + this.friends.length + 1, 0);
+// });
+
+//ADD VIRTUAL TO COUNT AND TRACK NUMBER OF THOUGHTS AND THOUGHTS WITH CONTINUES MADE ON RETRIEVAL TEST
+UserSchema.virtual('thoughtCount').get(function () {
+    return this.thoughts.reduce((total, thought) => total + thought.continues.length + 1, 0);
+});
+
+//ADD VIRTUAL TO COUNT AND TRACK NUMBER OF CONTINUES AND CONTINUES WITH REACTIONS MADE ON RETRIEVAL TEST
+UserSchema.virtual('continueCount').get(function () {
+    return this.continues.reduce((total, Continue) => total + Continue.reactions.length + 1, 0);
 });
 
 //MAKE THE MODEL

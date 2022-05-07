@@ -26,14 +26,25 @@ router
     .post(updateUser)
     .delete(deleteUser);
 
-//SET A PUT UPDATE TO USER TO ADD A FRIEND AT API/USERS/:USERID/FRIENDS
+// //SET A PUT UPDATE TO USER TO ADD A FRIEND AT API/USERS/:USERID/FRIENDS
+// router
+//     .route('/:id/friends/')
+//     .put(addFriend);
+
+// //SET POST to ADD and DELETE TO USER TO REMOVE A FRIEND BYFRIENDID AT API/USERS/:USERID/FRIENDS/:FRIENDID
+// router
+//     .route('/:id/friends/:friendId')
+//     .delete(removeFriend);
+
+//SET A POST ROUTE TO /API/FRIENDS/:USERID VIA THE ADDFRIEND() METHOD
 router
-    .route('/:id/friends/')
+    .route('/:userId/friends')
     .post(addFriend);
 
-//SET POST to ADD and DELETE TO USER TO REMOVE A FRIEND BYFRIENDID AT API/USERS/:USERID/FRIENDS/:FRIENDID
+//USE A DELETE CALLBACK VIA REMOVEFRIEND() METHOD SET-UP AS THE ROUTE /API/FRIENDS/:USERID/:FRIENDID 
 router
-    .route('/:id/friends/:friendId')
+    .route('/:userId/friends/:friendId')
+    // .post(addFriend)
     .delete(removeFriend);
 
 module.exports = router;

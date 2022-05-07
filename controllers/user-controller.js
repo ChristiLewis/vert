@@ -81,31 +81,31 @@ const userController = {
             .catch(err => res.status(400).json(err));
     },
 
-    // //ADD FRIEND TO USER TUTOR DEMO
-    addFriend({ body }, res) {
-        User.findOneAndUpdate({ _id: body.userId }, { $addToSet: { friends: body.friendId } }, { new: true })
-            .then((userData) => {
-                if (!userData) {
-                    return res.status(404).json({ message: 'There is a no user with this id' })
-                }
-                res.json()
-            })
-            .then(dbUserData => {
-                if (!dbUserData) {
-                    res.status(404).json({ message: 'No user found with this id!' });
-                    return;
-                }
-                res.json(dbUserData);
-            })
-            .catch(err => res.json(err));
-    },
-
-    //ADDFRIEND TO USER
+    // //ADD FRIEND TO USER TUTOR DEMO-NOT FINISHED NOT WORKING
     // addFriend({ params, body }, res) {
+    //     User.findOneAndUpdate({ _id: body.userId }, { $addToSet: { friends: params.friendId } }, { new: true })
+    //         .then((userData) => {
+    //             if (!userData) {
+    //                 return res.status(404).json({ message: 'There is a no user with this id' })
+    //             }
+    //             res.json()
+    //         })
+    //         .then(dbUserData => {
+    //             if (!dbUserData) {
+    //                 res.status(404).json({ message: 'No user found with this id!' });
+    //                 return;
+    //             }
+    //             res.json(dbUserData);
+    //         })
+    //         .catch(err => res.json(err));
+    // },
+
+    //ADDFRIEND TO USER-CLC INTERPOLATION FROM PIZZAHUNT
+    // addFriend({ params }, res) {
     //     User.findOneAndUpdate(
     //         { _id: params.userId },
     //         { $addToSet: { friends: params.friendId } },
-    //         { new: true, runValidators: true }
+    //         { new: true }
     //     )
     //         .then(dbUserData => {
     //             if (!dbUserData) {
@@ -117,6 +117,7 @@ const userController = {
     //         .catch(err => res.json(err));
     // },
 
+    //ADD FRIEND ONLINE TUTOR CODY'S CODE 
     // addFriend({ params }, res) {
     //     User.findOneAndUpdate(
     //         { _id: params.userId },
@@ -150,8 +151,24 @@ const userController = {
     //         )
     // },
 
+    //ADDFRIEND TO USER-CLC INTERPOLATION FROM PIZZAHUNT FIXED BY TA TIM FOR ROUTE USING URL PARAMS AND JSON BODY
+    addFriend({ params, body }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $addToSet: { friends: body.friendId } },
+            { new: true }
+        )
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No user found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.json(err));
+    },
 
-    //REMOVEFRIEND FROM USER
+    //REMOVEFRIEND FROM USER- VIA URL PARAMS ONLY - NO BODY REQUIRED
     removeFriend({ params }, res) {
         User.findOneAndUpdate(
             { _id: params.userId },
