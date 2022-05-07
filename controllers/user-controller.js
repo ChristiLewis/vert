@@ -3,23 +3,6 @@ const { User } = require('../models');
 
 const userController = {
     //FUNCTIONS AS METHODS GO HERE
-    //POST NEW USER
-    // postNewUser(req, res) {
-    //     User.create(user)
-    //         .then(dbUser => {
-    //             res.json(dbUser);
-    //         })
-    //         .catch(err => {
-    //             res.json(err);
-    //         });
-    // },
-
-    //CREATE MODEL
-    createUser({ body }, res) {
-        User.create(body)
-            .then(dbUserData => res.json(dbUserData))
-            .catch(err => res.status(400).json(err));
-    },
 
     //GET ALL
     getAllUser(req, res) {
@@ -63,6 +46,13 @@ const userController = {
             });
     },
 
+    //CREATE MODEL
+    //POST NEW USER
+    createUser({ body }, res) {
+        User.create(body)
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.status(400).json(err));
+    },
 
     //UPDATE MODEL
     updateUser({ params, body }, res) {
@@ -89,8 +79,105 @@ const userController = {
                 res.json(dbUserData);
             })
             .catch(err => res.status(400).json(err));
-    }
+    },
 
+    // //ADD FRIEND TO USER TUTOR DEMO-NOT FINISHED NOT WORKING
+    // addFriend({ params, body }, res) {
+    //     User.findOneAndUpdate({ _id: body.userId }, { $addToSet: { friends: params.friendId } }, { new: true })
+    //         .then((userData) => {
+    //             if (!userData) {
+    //                 return res.status(404).json({ message: 'There is a no user with this id' })
+    //             }
+    //             res.json()
+    //         })
+    //         .then(dbUserData => {
+    //             if (!dbUserData) {
+    //                 res.status(404).json({ message: 'No user found with this id!' });
+    //                 return;
+    //             }
+    //             res.json(dbUserData);
+    //         })
+    //         .catch(err => res.json(err));
+    // },
+
+    //ADDFRIEND TO USER-CLC INTERPOLATION FROM PIZZAHUNT
+    // addFriend({ params }, res) {
+    //     User.findOneAndUpdate(
+    //         { _id: params.userId },
+    //         { $addToSet: { friends: params.friendId } },
+    //         { new: true }
+    //     )
+    //         .then(dbUserData => {
+    //             if (!dbUserData) {
+    //                 res.status(404).json({ message: 'No user found with this id!' });
+    //                 return;
+    //             }
+    //             res.json(dbUserData);
+    //         })
+    //         .catch(err => res.json(err));
+    // },
+
+    //ADD FRIEND ONLINE TUTOR CODY'S CODE 
+    // addFriend({ params }, res) {
+    //     User.findOneAndUpdate(
+    //         { _id: params.userId },
+    //         { $addToSet: { friends: params.friendId } },
+    //         { new: true }
+    //     )
+    //         .then(data => {
+    //             if (!data) {
+    //                 res.status(404).json({ message: 'No friend with this id!' });
+    //                 return;
+    //             }
+
+    //             User.findOneAndUpdate(
+    //                 { _id: params.friendId },
+    //                 { $addToSet: { friends: params.userId } },
+    //                 { new: true }
+    //             )
+
+    //                 .then(data => {
+    //                     if (!data) {
+    //                         res.status(404).json({ message: 'No friend with this id!' });
+    //                     }
+    //                     res.json(data);
+    //                 })
+    //                 .catch(err => {
+    //                     console.log(err);
+    //                     res.status(500).json(err);
+
+    //                 })
+    //         }
+    //         )
+    // },
+
+    //ADDFRIEND TO USER-CLC INTERPOLATION FROM PIZZAHUNT FIXED BY TA TIM FOR ROUTE USING URL PARAMS AND JSON BODY
+    addFriend({ params, body }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $addToSet: { friends: body.friendId } },
+            { new: true }
+        )
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No user found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    //REMOVEFRIEND FROM USER- VIA URL PARAMS ONLY - NO BODY REQUIRED
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $pull: { friends: { friendId: params.friendId } } },
+            { new: true }
+        )
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.json(err));
+    }
 }
 
 module.exports = userController;
