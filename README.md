@@ -56,7 +56,7 @@ AS WELL AS add and remove reactions to a continuation of a thought or friends to
 >
 
   * ![Preview Image](./public/assets/images/header-bg.jpg)
-  * [![Watch the video](./public/assets/images/header-horiz.jpg)]( https://youtu.be)
+  * [![Watch the video](./public/assets/images/header-horiz.jpg)]( https://youtu.be/tlxcVjjKCMw)
 
   * [GitHub Repo](https://github.com/ChristiLewis/vert)
 
