@@ -23,11 +23,11 @@ Using a NoSQL database, Vert's Mongoose models synced to its MongoDB database ca
   * Considering the entire planet had a time=out, many of our local and world views have changed. It is time to make new friends, but how, where?
   * Social media apps have been focused upon linking existing family and friends, what about a safe place to practice conversations?
   * Let's face it, some of us are a little rusty and a safe batting cage to pitch a topic and strike up a conversation may help people experiment to gain confidence to apply starting conversations both in the virtual and in the "real" world.
-  * The best aspect of the code presented is that it presents thoughts as conversation starters.  When sucessful, there is a continuation of the initial thought and then replies. When you see a large data set for the topic of conversation presented, it may be a great way to strike up a conversation with a group of people.
+  * The best aspect of the code presented is that it presents thoughts as conversation starters.  When sucessful, there is a continuation of the initial thought and then replies called reactions. When you see a large data set for the topic of conversation presented, it may be a great way to strike up a conversation with a group of people.
   * After all, "It's not easy being green," but it's ok, there may be a million, even a billion or so people who may feel the same way.
 
   ## Installation
-  * As a back end app with a starter front end, see the video below for a preview of its features before cloning the software:
+  * As a back end app with a starter front end from a revised UM Miami Bootcamp project Called Pizza-Hunt, please see the video below for a preview of its features before cloning the software:
     1) In your root directory clone the vert repository: git clone git@github.com:ChristiLewis/vert.git ,
     2) Make sure you are in the root directory of vert, the project you just cloned: cd vert 
     3) Then verify your version of node.js: node -v,
@@ -65,7 +65,7 @@ AS WELL AS add and remove reactions to a continuation of a thought or friends to
   * [ChristiLewis](https://github.com/ChristiLewis)
 
 ## License
-* Contents are credited as inspired by the bootcamp, API documentation licensing requirements, and as per permission by the team members mentioned above. 
+* Contents are credited as inspired by the bootcamp, API documentation licensing requirements, and as per permission by the team members mentioned above. All content by the UM Bootcamp has a MIT License.
 
 ## Badges
 * There are no badges generated at this time. For more information: [shields.io](https://shields.io/)

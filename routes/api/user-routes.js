@@ -23,7 +23,7 @@ router
 router
     .route('/:id')
     .get(getUserById)
-    .post(updateUser)
+    .put(updateUser)
     .delete(deleteUser);
 
 // //SET A PUT UPDATE TO USER TO ADD A FRIEND AT API/USERS/:USERID/FRIENDS
@@ -39,7 +39,7 @@ router
 //SET A POST ROUTE TO /API/FRIENDS/:USERID VIA THE ADDFRIEND() METHOD
 router
     .route('/:userId/friends')
-    .post(addFriend);
+    .put(addFriend);
 
 //USE A DELETE CALLBACK VIA REMOVEFRIEND() METHOD SET-UP AS THE ROUTE /API/FRIENDS/:USERID/:FRIENDID 
 router
